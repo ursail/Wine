@@ -1,0 +1,40 @@
+backend:
+  name: github
+  repo: ursail/Wine
+  branch: main
+  # Optional für Login per GitHub-Button statt Token:
+  # base_url: https://sveltia-cms-auth.DEIN-SUBDOMAIN.workers.dev
+
+media_folder: assets/img
+public_folder: /assets/img
+
+collections:
+  - name: keller
+    label: Weinkeller
+    files:
+      - name: wines
+        label: Weine
+        file: data/wines.json
+        format: json
+        fields:
+          - label: Weine
+            name: wines
+            widget: list
+            label_singular: Wein
+            summary: "{{fields.name}} {{fields.year}} · {{fields.qty}} Fl."
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Weingut, name: winery, widget: string, required: false }
+              - { label: Rebsorte, name: grape, widget: string, required: false }
+              - { label: Weintyp, name: type, widget: select, options: [Rotwein, Weißwein, Rosé, Schaumwein, Süßwein], default: Rotwein }
+              - { label: Jahrgang, name: year, widget: number, value_type: int, min: 1900, max: 2100 }
+              - { label: Region und Land, name: region, widget: string, required: false }
+              - { label: Lagerort, name: loc, widget: string, required: false }
+              - { label: Anzahl Flaschen, name: qty, widget: number, value_type: int, min: 0, default: 1 }
+              - { label: Mindestbestand, name: min_qty, widget: number, value_type: int, min: 0, default: 0 }
+              - { label: Einkaufspreis je Flasche (EUR), name: price, widget: number, value_type: float, min: 0, step: 0.5, default: 0 }
+              - { label: Lieferant, name: supplier, widget: string, required: false }
+              - { label: Bewertung (0 bis 5), name: rating, widget: number, value_type: float, min: 0, max: 5, step: 0.5, default: 0 }
+              - { label: Trinkreif ab, name: drink_from, widget: number, value_type: int, required: false }
+              - { label: Trinkreif bis, name: drink_to, widget: number, value_type: int, required: false }
+              - { label: Notizen, name: note, widget: text, required: false }
