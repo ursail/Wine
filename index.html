@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Weinkeller">
+<title>Little Secret · Weinkeller</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;700&display=swap">
+<style>
+:root{--b1:#1b0f1d;--b2:#35142a;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.13);--ink:#f6eee9;--mute:#b9a9b4;--line:rgba(255,255,255,.14);--rose:#e0587f;--gold:#e2bf68;--ok:#6fd1a0;--warn:#ff9a62;color-scheme:dark}
+@media (prefers-color-scheme:light){:root{--b1:#f4eef2;--b2:#e6d3de;--glass:rgba(255,255,255,.65);--glass2:rgba(255,255,255,.95);--ink:#2a1626;--mute:#7b6674;--line:rgba(60,20,50,.15);--rose:#b0284f;--gold:#a67c12;--ok:#1f7a52;--warn:#c2410c;color-scheme:light}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--b1);background-image:radial-gradient(1100px 700px at 85% -10%,var(--b2),transparent 70%);background-attachment:fixed;color:var(--ink);font:400 16px/1.45 Manrope,system-ui,sans-serif;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.btn{min-height:48px;padding:0 22px;border-radius:14px;border:1px solid var(--line);background:var(--glass2);font-weight:700}
+.btn.pri{background:var(--rose);border-color:transparent;color:#fff}
+.btn.del{color:var(--warn)}
+input,select,textarea{min-height:48px;width:100%;border-radius:14px;border:1px solid var(--line);background:var(--glass);padding:10px 14px;font-size:16px}
+#login{min-height:100%;display:grid;place-items:center;padding:20px}
+#login .glass{width:min(420px,100%);padding:34px 28px;display:grid;gap:14px}
+#login .logo{font-size:44px;text-align:center}
+.err{color:var(--warn);font-size:14px;min-height:20px}
+.note{color:var(--mute);font-size:13px}
+#app{display:grid;grid-template-columns:230px 1fr;min-height:100%}
+nav{padding:20px 14px;display:flex;flex-direction:column;gap:8px;position:sticky;top:0;height:100vh;height:100dvh}
+nav h1{font-size:22px;padding:4px 12px 18px}
+nav h1 small{display:block;font:400 13px Manrope,sans-serif;color:var(--mute)}
+nav button{display:flex;gap:12px;align-items:center;min-height:52px;padding:0 14px;border-radius:14px;border:0;background:none;text-align:left;font-weight:500;font-size:16px;color:var(--mute)}
+nav button.on{background:var(--glass2);color:var(--ink)}
+nav .sp{flex:1}
+main{padding:22px 24px 40px;max-width:1200px;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.top h2{font-size:32px}
+.hero{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:16px;margin-bottom:16px}
+.ring{padding:22px;display:grid;place-items:center;position:relative}
+.ring svg{width:100%;max-width:240px}
+.ring .c{position:absolute;text-align:center}
+.ring .c b{font:700 54px/1 Fraunces,serif;display:block}
+.ring .c span{color:var(--mute);font-size:14px}
+.kp{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.kp>div{padding:18px}
+.kp b{font:700 30px/1.1 Fraunces,serif;display:block}
+.kp span{color:var(--mute);font-size:14px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.cols .glass{padding:20px}
+.cols h3{font-size:20px;margin-bottom:12px}
+.row{display:grid;grid-template-columns:56px 1fr 34px;gap:10px;align-items:center;margin:9px 0;font-size:14px}
+.tr{height:12px;border-radius:6px;background:var(--glass2);overflow:hidden}
+.tr i{display:block;height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:6px}
+.li{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}
+.li:last-child{border:0}
+.tag{font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.tag.w{color:var(--warn)}.tag.o{color:var(--ok)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.bar input{flex:1;min-width:200px}.bar select{width:auto;min-width:150px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.bt{padding:16px;display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center;cursor:pointer;transition:transform .15s,background .15s}
+.bt:active{transform:scale(.985);background:var(--glass2)}
+.bt svg{width:54px;height:132px}
+.bt h3{font-size:19px;line-height:1.2}
+.bt p{margin:2px 0;color:var(--mute);font-size:14px}
+.st{color:var(--gold);letter-spacing:2px}
+.q{display:flex;flex-direction:column;align-items:center;gap:6px}
+.q button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--glass2);font-size:22px;line-height:1}
+.q b{font:700 26px/1 Fraunces,serif}
+.pr{grid-column:2/4;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px}
+.empty{padding:50px 20px;text-align:center;color:var(--mute)}
+dialog{border:1px solid var(--line);border-radius:26px;padding:24px;width:min(640px,95vw);max-height:92vh;background:var(--b1);background-image:linear-gradient(var(--b2),transparent 60%);color:var(--ink)}
+dialog::backdrop{background:rgba(5,0,8,.6);backdrop-filter:blur(6px)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.fg label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mute)}
+.fg .w{grid-column:1/-1}
+.da{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:12px 20px;border-radius:14px;background:var(--glass2);border:1px solid var(--line);backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .25s}
+#toast.on{opacity:1}
+@media (max-width:820px){
+ #app{grid-template-columns:1fr;padding-bottom:84px}
+ nav{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;flex-direction:row;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));background:var(--b1);border-top:1px solid var(--line);z-index:5;border-radius:0}
+ nav h1,nav .sp{display:none}
+ nav button{flex:1;justify-content:center;flex-direction:column;gap:2px;font-size:12px;min-height:56px;padding:0 4px}
+ main{padding:16px 14px}.hero{grid-template-columns:1fr}.top h2{font-size:26px}
+ .fg{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+a.btn{display:inline-flex;align-items:center;text-decoration:none;color:inherit}a.btn.pri{color:#fff}
+</style>
+</head>
+<body>
+<div id="app">
+ <nav class="glass">
+  <h1>Weinkeller<small>Little Secret</small></h1>
+  <button data-v="home" class="on"><span>◐</span>Übersicht</button>
+  <button data-v="cellar"><span>▥</span>Keller</button>
+  <div class="sp"></div>
+  <button data-v="admin"><span>✎</span>Verwalten</button>
+ </nav>
+ <main id="main"></main>
+</div>
+<dialog id="dlg"><h2 id="dt"></h2><div id="info" style="margin:14px 0"></div>
+ <div class="da"><button class="btn" id="cancel">Schließen</button><a class="btn pri" href="admin/">Bearbeiten</a></div></dialog>
+<div id="toast" role="status"></div>
+<script>
+const TYPES={"Rotwein":"#9c2749","Weißwein":"#d9c36b","Rosé":"#ee8fa8","Schaumwein":"#8cc3d6","Süßwein":"#d98a35"};
+const Y=new Date().getFullYear();
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const eur=n=>(+n||0).toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+const stars=r=>r?"★".repeat(Math.round(r))+"☆".repeat(5-Math.round(r)):"–";
+let wines=[],view="home",q="",ft="",sk="name";
+/* ---- Hilfen ---- */
+function status(w){
+ const s=[];
+ if(w.qty<=w.min_qty)s.push(["w",w.qty?"Nachbestellen":"Ausverkauft"]);
+ if(w.drink_to&&w.drink_to<Y)s.push(["w","Zu spät?"]);
+ else if(w.drink_to&&w.drink_to===Y&&w.drink_from<=Y)s.push(["w","Jetzt trinken"]);
+ else if(w.drink_from<=Y&&(!w.drink_to||w.drink_to>=Y))s.push(["o","Trinkreif"]);
+ else if(w.drink_from>Y)s.push(["","Reift noch"]);
+ return s;
+}
+const bottle=c=>`<svg viewBox="0 0 40 100" aria-hidden="true"><path d="M16 2h8v22c0 8 10 12 10 30v40a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V54c0-18 10-22 10-30z" fill="${c}"/><rect x="6" y="58" width="28" height="26" fill="#fff" opacity=".85"/><path d="M12 30c0 6-2 10-2 16" stroke="#fff" opacity=".35" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+let tt;function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2600)}
+
+/* ---- Ansichten ---- */
+function home(){
+ const bot=wines.reduce((a,w)=>a+w.qty,0),val=wines.reduce((a,w)=>a+w.qty*w.price,0);
+ const rated=wines.filter(w=>w.rating>0),avg=rated.length?rated.reduce((a,w)=>a+w.rating,0)/rated.length:0;
+ const bt={};wines.forEach(w=>bt[w.type]=(bt[w.type]||0)+w.qty);
+ const R=44,C=2*Math.PI*R;let off=0;
+ const arcs=Object.entries(bt).filter(e=>e[1]>0).map(([t,n])=>{const l=n/bot*C,s=`<circle cx="60" cy="60" r="${R}" fill="none" stroke="${TYPES[t]}" stroke-width="14" stroke-dasharray="${Math.max(0,l-2)} ${C-Math.max(0,l-2)}" stroke-dashoffset="${-off}" transform="rotate(-90 60 60)"/>`;off+=l;return s}).join("");
+ const yr={};wines.forEach(w=>yr[w.year]=(yr[w.year]||0)+w.qty);const ym=Math.max(1,...Object.values(yr));
+ const drink=wines.filter(w=>status(w).some(s=>/trinken|Trinkreif/.test(s[1]))).sort((a,b)=>b.rating-a.rating).slice(0,5);
+ const al=wines.flatMap(w=>status(w).filter(s=>s[0]==="w").map(s=>[w,s[1]]));
+ return `<div class="top"><h2>Übersicht</h2><a class="btn pri" href="admin/">Verwalten</a></div>
+ <div class="hero"><div class="glass ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--glass2)" stroke-width="14"/>${arcs}</svg><div class="c"><b>${bot}</b><span>Flaschen</span></div></div>
+ <div class="kp"><div class="glass"><b>${eur(val)}</b><span>Lagerwert (Einkauf)</span></div><div class="glass"><b>${wines.length}</b><span>Verschiedene Weine</span></div><div class="glass"><b>${bot?eur(val/bot):"–"}</b><span>Ø Preis je Flasche</span></div><div class="glass"><b>${avg?avg.toFixed(1).replace(".",",")+" ★":"–"}</b><span>Ø Bewertung</span></div></div></div>
+ <div class="cols">
+ <div class="glass"><h3>Jetzt trinken</h3>${drink.length?drink.map(w=>`<div class="li" data-e="${w.id}"><span>${esc(w.name)} ${w.year}<br><small class="st">${stars(w.rating)}</small></span><span class="tag o">${w.qty} Fl.</span></div>`).join(""):'<div class="note">Gerade ist kein Wein im Trinkfenster.</div>'}</div>
+ <div class="glass"><h3>Nach Jahrgang</h3>${Object.keys(yr).sort().map(y=>`<div class="row"><span>${y}</span><div class="tr"><i style="width:${yr[y]/ym*100}%"></i></div><b>${yr[y]}</b></div>`).join("")||'<div class="note">Noch keine Weine erfasst.</div>'}</div>
+ <div class="glass"><h3>Aufmerksamkeit nötig</h3>${al.length?al.map(([w,m])=>`<div class="li" data-e="${w.id}"><span>${esc(w.name)} ${w.year}</span><span class="tag w">${m}</span></div>`).join(""):'<div class="note">Alles in Ordnung.</div>'}</div></div>`;
+}
+function cellar(){
+ const sups=[...new Set(wines.map(w=>w.supplier).filter(Boolean))].sort();
+ let l=wines.filter(w=>(!ft||w.type===ft)&&(!q||[w.name,w.winery,w.grape,w.supplier,w.region,w.loc].join(" ").toLowerCase().includes(q)));
+ l.sort((a,b)=>sk==="name"?a.name.localeCompare(b.name,"de"):sk==="rating"?b.rating-a.rating:sk==="year"?a.year-b.year:sk==="qty"?b.qty-a.qty:b.price-a.price);
+ return `<div class="top"><h2>Keller</h2><a class="btn pri" href="admin/">Verwalten</a></div>
+ <div class="bar"><input id="q" type="search" placeholder="Suchen: Name, Weingut, Rebsorte, Lieferant …" value="${esc(q)}" aria-label="Suche">
+ <select id="ft" aria-label="Weintyp"><option value="">Alle Typen</option>${Object.keys(TYPES).map(t=>`<option${t===ft?" selected":""}>${t}</option>`).join("")}</select>
+ <select id="sk" aria-label="Sortierung">${[["name","Name"],["rating","Bewertung"],["year","Jahrgang"],["qty","Anzahl"],["price","Preis"]].map(([k,n])=>`<option value="${k}"${k===sk?" selected":""}>Sortiert nach ${n}</option>`).join("")}</select></div>
+ ${l.length?`<div class="grid">${l.map(w=>`<article class="glass bt" data-e="${w.id}">${bottle(TYPES[w.type]||"#888")}<div><h3>${esc(w.name)}</h3><p>${esc(w.winery)} · ${w.year}</p><p class="st">${stars(w.rating)}</p><p>${esc(w.grape)}</p></div><div class="q"><b>${w.qty}</b><span class="note">Fl.</span></div><div class="pr"><span>${eur(w.price)} · ${esc(w.supplier)}</span><span>${status(w).map(s=>`<span class="tag ${s[0]}">${s[1]}</span>`).join(" ")}</span></div></article>`).join("")}</div>`:'<div class="empty glass">Keine Weine gefunden. Passe die Suche an oder lege einen neuen Wein an.</div>'}`;
+}
+function render(){
+ $("main").innerHTML=view==="cellar"?cellar():home();
+ document.querySelectorAll("nav [data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===view));
+}
+
+
+function openInfo(id){
+ const w=wines.find(x=>x.id==id);
+ const rows=[["Weingut",w.winery],["Rebsorte",w.grape],["Typ",w.type],["Jahrgang",w.year],["Region",w.region],["Lagerort",w.loc],["Anzahl",w.qty+" (Mindestbestand "+w.min_qty+")"],["Einkaufspreis",eur(w.price)],["Lieferant",w.supplier],["Bewertung",stars(w.rating)],["Trinkfenster",w.drink_from?w.drink_from+"–"+w.drink_to:""],["Notizen",w.note]].filter(r=>r[1]);
+ $("dt").textContent=w.name;
+ $("info").innerHTML=rows.map(([k,v])=>`<div class="li"><span class="note">${k}</span><span>${esc(v)}</span></div>`).join("");
+ $("dlg").showModal();
+}
+$("cancel").onclick=()=>$("dlg").close();
+document.addEventListener("click",e=>{
+ const t=e.target.closest("[data-e],[data-v]");if(!t)return;
+ if(t.dataset.e!==undefined)openInfo(+t.dataset.e);
+ else if(t.dataset.v==="admin")location.href="admin/";
+ else{view=t.dataset.v;render();window.scrollTo(0,0)}
+});
+document.addEventListener("input",e=>{
+ if(e.target.id==="q"){q=e.target.value.toLowerCase();const p=e.target.selectionStart;render();const n=$("q");n.focus();n.setSelectionRange(p,p)}
+ if(e.target.id==="ft"){ft=e.target.value;render()}
+ if(e.target.id==="sk"){sk=e.target.value;render()}
+});
+(async()=>{
+ try{
+  const r=await fetch("data/wines.json",{cache:"no-store"});const d=await r.json();
+  wines=(d.wines||[]).map((w,i)=>({id:i,name:"",winery:"",grape:"",type:"Rotwein",year:0,region:"",loc:"",qty:0,min_qty:0,price:0,supplier:"",rating:0,drink_from:0,drink_to:0,note:"",...w}));
+ }catch(e){toast("Daten konnten nicht geladen werden.")}
+ render();
+})();
+</script>
+</body>
+</html>
